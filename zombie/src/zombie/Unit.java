@@ -3,12 +3,13 @@ package zombie;
 import java.util.Random;
 
 abstract public class Unit {
+	Random ran;
 	private int pos;
 	private int hp;
 	private final int MAX_HP;
 	private String name;
 	int maxDamage;
-	Random ran;
+	private boolean isDead;
 
 	public Unit(String name, int pos, int hp, int maxDamage) {
 		this.name = name;
@@ -30,12 +31,21 @@ abstract public class Unit {
 	public int getHp() {
 		return hp;
 	}
+
 	public int getMaxHp() {
 		return MAX_HP;
 	}
 
 	public void setHp(int hp) {
 		this.hp = hp;
+	}
+
+	public boolean getIsDead() {
+		return this.isDead;
+	}
+
+	public void setIsDead(boolean isDead) {
+		this.isDead = isDead;
 	}
 
 	public int getMaxDamage() {
@@ -49,8 +59,9 @@ abstract public class Unit {
 	}
 
 	abstract void attack(Unit unit);
+
 	@Override
 	public String toString() {
-		return String.format("%s [%d/%d]",name,hp,MAX_HP);
+		return String.format("%s [%d/%d]", name, hp, MAX_HP);
 	}
 }

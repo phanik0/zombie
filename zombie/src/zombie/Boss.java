@@ -3,39 +3,52 @@ package zombie;
 import java.util.Random;
 
 public class Boss extends Zombie {
-	
+
 	private Random ran = new Random();
-	
+
 	private int shield;
+	private final int MAX_SHIELD;
 	private String name;
-	public void setShield(int value) {
-		shield = value;
+
+	public Boss(int pos, int hp, int max, int shield) {
+		super("ZombieKing", pos, hp, max);
+		this.shield = shield;
+		MAX_SHIELD = shield;
 	}
+	public void setShield(int shield) {
+		this.shield = shield;
+	}
+
 	public int getShield() {
 		return shield;
 	}
-	
-	
-	public Boss(int pos, int hp, int max, int shield) {
-		super("ZombieKing",pos, hp, max);
-		this.shield = shield;
+
+	public int getMaxShield() {
+		return MAX_SHIELD;
 	}
+
 
 	public void attack(Unit hero) {
 		int power = (ran.nextInt(maxDamage) + 1);
 		int critical = ran.nextInt(4) + 1;
 		if (critical == 1) {
 			power *= 2;
-			System.err.println("좀비킹의 ");
-			System.err.println("CriticalDmage : "+power);
+			hero.setHp(hero.getHp() - power);
+			if (hero.getHp() <= 0) {
+				hero.setHp(0);
+			}
+			System.err.println("키아아아앍아아아아앍!!!!");
+			System.err.println("CriticalDmage : " + power);
 			System.out.println(hero);
 		} else {
+			hero.setHp(hero.getHp() - power);
+			if (hero.getHp() <= 0) {
+				hero.setHp(0);
+			}
+			System.out.println("우워어얽!");
 			System.out.println("Damage" + power);
 			System.out.println(hero);
 		}
-		hero.setHp(hero.getHp() - power);
-		if(hero.getHp() <= 0) {
-			hero.setHp(0);
-		}
+
 	}
 }

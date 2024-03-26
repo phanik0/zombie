@@ -44,12 +44,12 @@ public class Game {
 	}
 
 	private void setGame() {
+		map = new int[SIZE];
 		String name = inputString("이름을 입력해주세요");
 		hero = new Hero(name, 1, 200, 20, 2);
 		zombie = new Zombie("Zombie", 5, 100, 10);
 		boss = new Boss(9, 300, 20, 100);
 		pos = 0;
-		map = new int[SIZE];
 		map[hero.getPos()] = HERO;
 		map[zombie.getPos()] = ZOMBIE;
 		map[boss.getPos()] = BOSS;
@@ -90,7 +90,11 @@ public class Game {
 			int sel = scan.nextInt();
 
 			if (sel == 1) {
-				hero.attack(enemy); // 나의 이번턴 공격력 저장
+				hero.attack(enemy);
+				try {
+					Thread.sleep(300);
+				} catch (Exception e) {
+				}
 				enemy.attack(hero); // 좀비의 이번턴 공격력 저장
 			}
 
@@ -99,11 +103,14 @@ public class Game {
 			}
 			if (hero.getHp() <= 0) {
 				System.out.println(" YOU DEAD ");
+				hero.setIsDead(true);
+				setGame();
 				break;
 			}
 
 			if (enemy.getHp() <= 0) {
 				System.out.println("STAGE CLEAR");
+				enemy.setIsDead(true);
 				break;
 			}
 		}
@@ -127,9 +134,17 @@ public class Game {
 			moveHero();
 	}
 
+	private boolean isRun() {
+		return boss.getIsDead() ? false : true;
+	}
+
+	private void gameClear() {
+		System.out.println("Game Clear!");
+	}
+
 	public void run() {
 		setGame();
-		while (true) {
+		while (isRun()) {
 			playGame();
 		}
 //		Main.main(null);
