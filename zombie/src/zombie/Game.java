@@ -58,11 +58,11 @@ public class Game {
 
 	private void printMap() {
 		for (int i = 0; i < SIZE; i++) {
-			if (map[i] == hero.getPos())
+			if (map[i] == HERO)
 				System.out.print("옷_");
-			else if (map[i] == zombie.getPos())
+			else if (map[i] == ZOMBIE)
 				System.out.print("Ζ_");
-			else if (map[i] == boss.getPos())
+			else if (map[i] == BOSS)
 				System.out.print("B_");
 			else
 				System.out.print("__");
@@ -84,15 +84,14 @@ public class Game {
 
 	}
 
-	private void fightZombie() {
-		System.err.println("DANGER ALERT");
-		System.out.println("우우..어어얽");
+	private void fightEnemy(Unit enemy) {
 		while (true) {
+			System.out.print("공격하기(1),포션마시기(2): ");
 			int sel = scan.nextInt();
 
 			if (sel == 1) {
-				hero.attack(zombie); // 나의 이번턴 공격력 저장
-				zombie.attack(hero); // 좀비의 이번턴 공격력 저장
+				hero.attack(enemy); // 나의 이번턴 공격력 저장
+				enemy.attack(hero); // 좀비의 이번턴 공격력 저장
 			}
 
 			else if (sel == 2) {
@@ -103,15 +102,22 @@ public class Game {
 				break;
 			}
 
-			if (zombie.getHp() <= 0) {
+			if (enemy.getHp() <= 0) {
 				System.out.println("STAGE CLEAR");
 				break;
 			}
 		}
 	}
 
-	private void fightBoss() {
+	private void fightZombie() {
+		System.out.println("우우..어어얽");
+		fightEnemy(zombie);
+	}
 
+	private void fightBoss() {
+		System.err.println("DANGER ALERT");
+		System.out.println("크아아아아앍!!");
+		fightEnemy(boss);
 	}
 
 	private void playGame() {

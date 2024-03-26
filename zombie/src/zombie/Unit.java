@@ -11,7 +11,7 @@ abstract public class Unit {
 	Random ran;
 
 	public Unit(String name, int pos, int hp, int maxDamage) {
-		
+		this.name = name;
 		this.pos = pos;
 		this.hp = hp;
 		MAX_HP = hp;
@@ -49,9 +49,8 @@ abstract public class Unit {
 	}
 
 	abstract void attack(Unit unit);
+	@Override
 	public String toString() {
-		
 		return String.format("%s [%d/%d]",name,hp,MAX_HP);
-		
 	}
 }

@@ -14,39 +14,43 @@ public class Hero extends Unit {
 
 		if (enemy instanceof Boss) {
 			Boss boss = (Boss) enemy;
-			power = ran.nextInt(maxDamage) + 1;
-			if (boss.getShield() > 0) {
-				int r = boss.getShield() - power;
-				if (r >= 0) {
-					boss.setShield(boss.getShield() - power);
-				} else {
-					boss.setShield(0);
-					boss.setHp(boss.getHp() - r);
-				}
-			} else {
-				boss.setHp(boss.getHp() - power);
-			}
-
-			if (boss.getHp() <= 0) {
-				boss.setHp(0);
-			}
-			System.out.println("Èå¾Æ¾Ñ!");
-			System.out.println("Damage : " + power);
-			System.out.println(boss);
+			attackBoss(boss);
 		} else {
-
-			power = ran.nextInt(maxDamage) + 1;
-			enemy.setHp(enemy.getHp() - power);
-			if (enemy.getHp() <= 0) {
-				enemy.setHp(0);
-			}
-			System.out.println("ÇÏ¾Æ¾Ñ!");
-			System.out.println("Damage : " + power);
-
-			System.out.println(enemy);
+			attackZombie(enemy);
 		}
 	}
+	private void attackBoss(Boss boss) {
+		power = ran.nextInt(maxDamage) + 1;
+		if (boss.getShield() > 0) {
+			int r = boss.getShield() - power;
+			if (r >= 0) {
+				boss.setShield(boss.getShield() - power);
+			} else {
+				boss.setShield(0);
+				boss.setHp(boss.getHp() - r);
+			}
+		} else {
+			boss.setHp(boss.getHp() - power);
+		}
 
+		if (boss.getHp() <= 0) {
+			boss.setHp(0);
+		}
+		System.out.println("Èå¾Æ¾Ñ!");
+		System.out.println("Damage : " + power);
+		System.out.println(boss);
+	}
+	private void attackZombie(Unit enemy) {
+		power = ran.nextInt(maxDamage) + 1;
+		enemy.setHp(enemy.getHp() - power);
+		if (enemy.getHp() <= 0) {
+			enemy.setHp(0);
+		}
+		System.out.println("ÇÏ¾Æ¾Ñ!");
+		System.out.println("Damage : " + power);
+
+		System.out.println(enemy);
+	}
 	public void recovery() {
 		if (count > 0) {
 			setHp(getHp() + 100);
@@ -58,11 +62,6 @@ public class Hero extends Unit {
 
 	}
 
-	@Override
-	public String toString() {
-
-		return String.format("%s [%d/%d]", name, super.getHp(), super.getMaxHp());
-
-	}
+	
 
 }

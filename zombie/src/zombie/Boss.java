@@ -22,24 +22,20 @@ public class Boss extends Zombie {
 	}
 
 	public void attack(Unit hero) {
-
-		int a = ran.nextInt(4) + 1;
-		if (a == 1) {
-			System.out.println("보스의 필살기 발동 2배의 공격력");
-			int power = 2 * (ran.nextInt(maxDamage) + 1);
-			hero.setHp(hero.getHp() - power);
-			if(hero.getHp() <= 0) {
-				hero.setHp(0);
-			}
-			System.out.println("보스가 " + power + "의 공격력으로 공격 :" + " 현재 Hero hp : " + hero.getHp());
+		int power = (ran.nextInt(maxDamage) + 1);
+		int critical = ran.nextInt(4) + 1;
+		if (critical == 1) {
+			power *= 2;
+			System.err.println("좀비킹의 ");
+			System.err.println("CriticalDmage : "+power);
+			System.out.println(hero);
 		} else {
-			System.out.println("보스의 일반공격 ");
-			int power = ran.nextInt(maxDamage) + 1;
-			hero.setHp(hero.getHp() - power);
-			if(hero.getHp() <= 0) {
-				hero.setHp(0);
-			}
-			System.out.println("보스가 " + power + "의 공격력으로 공격 :" + " 현재 Hero hp : " + hero.getHp());
+			System.out.println("Damage" + power);
+			System.out.println(hero);
+		}
+		hero.setHp(hero.getHp() - power);
+		if(hero.getHp() <= 0) {
+			hero.setHp(0);
 		}
 	}
 }
