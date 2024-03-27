@@ -6,4 +6,4 @@
 ![diagram](Image/d.jpg)
 
 >Demo
-![diagram](Image/제목-없는-동영상-Clipchamp로-제작.gif)
+![diagram](Image/제목-없는-동영상-Clipchamp로-제작-_1_.gif)
